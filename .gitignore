@@ -37,3 +37,6 @@ node_modules/
 !/app/assets/builds/.keep
 
 .env
+
+# misc
+misc

@@ -1,4 +1,4 @@
-<nav>
+<nav class="flex px-8 py-4 justify-center gap-12 ">
   <% unless current_user.present? %>
     <%=form_with model: User.new, url: new_user_session_path, method: :get do %>
       <button class="text-sky-600">Sign in</button>

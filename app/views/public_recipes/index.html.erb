@@ -1,8 +1,8 @@
 <div class="flex justify-center flex-col items-center">
 <p>Public</p>
 <% @public_recipe.each do |pub| %>
+  <%= link_to public_recipe_path(pub) do %>
     <div class="flex gap-y-5 w-[30rem] bg-slate-300 justify-between p-5 mt-5">
-        <%= link_to public_recipe_path(pub) do %>
             <div class="flex flex-col gap-y-2">
                 <h1 class="mr-5 text-blue-700"><%= pub.name%> <span class='text-slate-800'>By:<span></h1> 
                 <p class="text-green-500 mr-5"><%= pub.user.name %>
@@ -12,8 +12,8 @@
                 <p>Total food items: <%= pub.foods.length %></p>
                 <p>Total food items: <%= pub.foods.reduce(0) { |sum, num| sum + num.price } %></p>
             </div>
-        <% end %>
     </div>
+     <% end %>
 <% end %>
 </div>
 

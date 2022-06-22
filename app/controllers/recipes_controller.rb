@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
   def index
     @user = current_user
     @recipes = @user.recipes.all
@@ -7,6 +8,7 @@ class RecipesController < ApplicationController
   def show
     # check if the recipe_id belong to the user
     @recipe = Recipe.find(params[:id])
+    authenticate_and_show!(@recipe)
   end
 
   def create
@@ -21,7 +23,7 @@ class RecipesController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @recipe = Recipe.find(params[:id])
     @recipe.public = ! @recipe.public
 
@@ -48,6 +50,12 @@ class RecipesController < ApplicationController
   end
 
   private
+
+  def authenticate_and_show!(recipe)
+    unless recipe.public
+      authenticate_user!
+    end
+  end
 
   def recipe_params
     params.require(:recipe).permit(:name, :description, :preparation_time, :cooking_time)

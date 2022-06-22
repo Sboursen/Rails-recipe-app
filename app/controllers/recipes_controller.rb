@@ -55,6 +55,10 @@ class RecipesController < ApplicationController
     unless recipe.public
       authenticate_user!
     end
+    if recipe.user.id != current_user.id
+      flash[:alert] = 'Sorry! you can only access the details of your own recipes'
+      redirect_to public_recipes_path
+    end
   end
 
   def recipe_params

@@ -1,6 +1,4 @@
 class RecipesController < ApplicationController
-    before_action :authenticate_user!
-
     def index
         @user = current_user
         @recipes = @user.recipes.all
@@ -16,7 +14,7 @@ class RecipesController < ApplicationController
         @recipe.user_id = current_user.id
         if @recipe.save
             flash[:notice] = "Your recipe was successfully created"
-            redirect_to @recipe
+            redirect_to recipes_path
         else
             render 'new'
             flash[:notice] = "Failed to create a recipe"
@@ -29,12 +27,13 @@ class RecipesController < ApplicationController
 
     def destroy
         @recipe = Recipe.find(params[:id])
-        @recipe.destroy
 
-        respond_to do |format|
-            format.html { redirect_to recipes_path }
-            format.json  { head :ok }
+        if @recipe.destroy
+            flash[:notice] = "Your recipe was successfully deleted"
+        else
+            flash[:notice] = "Failed to delete the recipe"
         end
+        redirect_to recipes_path
     end
 
     private

@@ -21,8 +21,12 @@
           <td><%= food.name %></td>
           <td><%= food.measurement_unit %></td>
           <td><%= food.price %></td>
-          <td> is it my food?
-            <%= @current_user.present? && @current_user.id == food.user.id %>
+          <td>
+            <% if @current_user.present? && @current_user.id == food.user.id %>
+              <%=form_with model: Food.new, url: food_path(food), method: :delete do %>
+               <button class="text-red-300">delete</button>
+              <% end %>
+            <% end %>
           </td>
         </tr>
       <% end %>

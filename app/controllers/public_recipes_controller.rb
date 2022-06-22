@@ -1,10 +1,7 @@
 class PublicRecipesController < ApplicationController
-    def index
-        @public_recipe = Recipe.where(public: true).order('created_at DESC')
+  def index
+    @public_recipe = Recipe.where(public: true).order('created_at DESC')
+  end
 
-    end
-
-    def show
-
-    end 
+  def show; end
 end

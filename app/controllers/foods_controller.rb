@@ -1,20 +1,23 @@
 class FoodsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
   def index
     @foods = Food.all
     @current_user = current_user
   end
 
-  def new; end
+  def new
+    @new_food = Food.new
+  end
 
   def create
-    user = current_user
-
     new_food = Food.new(food_params)
+    new_food.user_id = current_user.id
 
     if new_food.save
-      flash[:notice] = 'You have successfully created a new post.'
-      redirect_to foods_path(user, new_post)
+      flash[:notice] = 'You have successfully created a new food.'
+      redirect_to foods_path
     else
+      flash[:notice] = 'The food has not been added.'
       render :new
     end
   end

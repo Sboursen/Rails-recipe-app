@@ -1,6 +1,14 @@
 <nav>
-  <%= link_to "Sign in" , new_user_session_path unless current_user.present? %>
-  <%= link_to "Sign up" , new_user_registration_path unless current_user.present? %>
+  <% unless current_user.present? %>
+    <%=form_with model: User.new, url: new_user_session_path, method: :get do %>
+      <button class="text-sky-600">Sign in</button>
+    <% end %>
+  <% end %>
+  <% unless current_user.present? %>
+    <%=form_with model: User.new, url: new_user_registration_path, method: :get do %>
+      <button class="text-sky-600">Sign up</button>
+    <% end %>
+  <% end %>
   <% if current_user.present? %>
     <%=form_with model: User.new, url: destroy_user_session_path, method: :delete do %> 
       <button class="text-red-600">Sign out</button>

@@ -1,0 +1,27 @@
+<div class="flex ">
+  <div class="w-full">
+    <button>Add food</button>
+  </div>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Measurement Unit</th>
+        <th>Unit price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.measurement_unit %></td>
+          <td><%= food.price %></td>
+          <td> is it my food?
+            <%= @current_user.id == food.user.id %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

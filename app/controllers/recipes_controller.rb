@@ -52,7 +52,7 @@ class RecipesController < ApplicationController
   private
 
   def authenticate_and_show!(recipe)
-    unless recipe.public
+    unless current_user.present?
       authenticate_user!
     end
     if recipe.user.id != current_user.id

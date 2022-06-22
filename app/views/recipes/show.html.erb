@@ -36,7 +36,7 @@
         <% end %>
       </div>
       <div>
-        <%=form_with model: Food.new, url: new_food_path, method: :get do %>
+        <%=form_with model: RecipeFood.new, url: new_recipe_recipe_food_path(@recipe), method: :get do %>
           <button class="rounded px-8 py-4 shadow-sm border-2">Add ingredient</button>
         <% end %>
       </div>
@@ -61,7 +61,7 @@
               <%= recipe_food.quantity %><%= recipe_food.food.measurement_unit %>
             </td>
             <td>
-              $<%= recipe_food.food.price * recipe_food.quantity %>
+              $<%= '%.2f' % (recipe_food.food.price * recipe_food.quantity) %>
             </td>
             <td class="inline-flex justify-between px-2 gap-3">
               <%=form_with model: Food.new, url: foods_path, method: :get do %>

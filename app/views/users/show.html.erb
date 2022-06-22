@@ -9,5 +9,6 @@
 
   <%=form_with model: User.new, url: destroy_user_session_path, method: :delete do %>
     <button class="custom-button">Sign out</button>
-    <% end %>
+  <% end %>
+  <%= @user.name %>
 </div>

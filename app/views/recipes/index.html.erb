@@ -1,0 +1,7 @@
+<% @recipes.each do |recipe| %>
+     <p><%= recipe.name %></p>
+     <p><%= recipe.description %></p>
+     <%= button_to "Delete", recipe_path(recipe), method: :delete, data:{controller:  "confirmation", "message-value": "Are you sure?", action: "submit->confirmation#confirm"}%>
+<% end %>
+
+

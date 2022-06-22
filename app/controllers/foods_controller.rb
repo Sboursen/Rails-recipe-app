@@ -27,11 +27,10 @@ class FoodsController < ApplicationController
 
     if @food.destroy
       flash[:success] = 'Food deleted successfully'
-      redirect_to foods_path
     else
       flash.now[:error] = 'Error: Food could not be deleted'
-      redirect_to foods_path
     end
+    redirect_to foods_path
   end
 
   def food_params

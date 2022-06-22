@@ -21,6 +21,17 @@ class RecipesController < ApplicationController
     end
   end
 
+  def edit
+    @recipe = Recipe.find(params[:id])
+    @recipe.public = ! @recipe.public
+
+    if @recipe.save
+      flash[:notice] = "Your recipe is now #{@recipe.public ? 'Public' : 'Private'}"
+    else
+      flash[:notice] = 'Failed to change the status of this recipe'
+    end
+  end
+
   def new
     @recipe = Recipe.new
   end

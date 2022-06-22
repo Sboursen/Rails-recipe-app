@@ -1,0 +1,9 @@
+<nav>
+  <%= link_to "Sign in" , new_user_session_path unless current_user.present? %>
+  <%= link_to "Sign up" , new_user_registration_path unless current_user.present? %>
+  <% if current_user.present? %>
+    <%=form_with model: User.new, url: destroy_user_session_path, method: :delete do %> 
+      <button class="text-red-600">Sign out</button>
+    <% end %>
+  <% end %>
+</nav>

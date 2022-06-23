@@ -1,0 +1,35 @@
+<div class="flex flex-col mx-6 mt-6 gap-12">
+  <div class="w-full text-right pr-6">
+    <% if current_user.present? %>
+      <%=form_with model: Food.new, url: new_food_path, method: :get do %>
+        <button class="px-4 py-2 shadow-md shadow-black">Add food</button>
+      <% end %>
+    <% end %>
+  </div>
+  <table class="table-auto">
+    <thead>
+      <tr class="bg-gray-500 text-white">
+        <th>Food</th>
+        <th>Measurement Unit</th>
+        <th>Unit price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr class="odd:bg-gray-200">
+          <td><%= food.name %></td>
+          <td><%= food.measurement_unit %></td>
+          <td><%= food.price %></td>
+          <td>
+            <% if @current_user.present? && @current_user.id == food.user.id %>
+              <%=form_with model: Food.new, url: food_path(food), method: :delete do %>
+               <button class="text-red-300">delete</button>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

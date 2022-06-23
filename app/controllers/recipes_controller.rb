@@ -52,7 +52,10 @@ class RecipesController < ApplicationController
   private
 
   def authenticate_and_show!(recipe)
-    authenticate_user! unless current_user.present?
+    return if recipe.public
+
+    authenticate_user!
+
     return unless recipe.user.id != current_user.id
 
     flash[:alert] = 'Sorry! you can only access the details of your own recipes'

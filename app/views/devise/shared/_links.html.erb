@@ -1,6 +1,32 @@
-<div class="flex flex-row flex-wrap gap-3 justify-center [&>*]:bg-blue-200 [&>*]:border-2 [&>*]:border-sky-700 [&>*]:px-4 [&>*]:py-2 [&>*]:rounded-lg mt-6">
-  <%- if controller_name != 'sessions' %>
-    <%= link_to "Log in", new_session_path(resource_name) %><br />
+<%- if controller_name != 'sessions' %>
+  <%= link_to "Log in", new_session_path(resource_name) %><br />
+<% end %>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <div class="flex gap-x-2">
+    <p class="text-sky-500">don't have an account ?</p>
+    <span class="text-sky-600"><%= link_to "Sign up", new_registration_path(resource_name) %></span> 
+  </div>
+<% end %>
+
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <div class="flex gap-x-2">
+    <p class="text-sky-500">Forgot your password?</p>
+    <span class="text-sky-600"><%= link_to "Reset password", new_password_path(resource_name) %></span>
+  </div>
+<% end %>
+
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+<% end %>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+<% end %>
+
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %><br />
   <% end %>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
@@ -24,5 +50,5 @@
       <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %><br />
     <% end %>
   <% end %>
-</div>
+<% end %>
 

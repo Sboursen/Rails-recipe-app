@@ -25,13 +25,13 @@ class RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    @recipe.public = ! @recipe.public
+    @recipe.public = !@recipe.public
 
-    if @recipe.save
-      flash[:notice] = "Your recipe is now #{@recipe.public ? 'Public' : 'Private'}"
-    else
-      flash[:notice] = 'Failed to change the status of this recipe'
-    end
+    flash[:notice] = if @recipe.save
+                       "Your recipe is now #{@recipe.public ? 'Public' : 'Private'}"
+                     else
+                       'Failed to change the status of this recipe'
+                     end
   end
 
   def new
@@ -52,13 +52,11 @@ class RecipesController < ApplicationController
   private
 
   def authenticate_and_show!(recipe)
-    unless current_user.present?
-      authenticate_user!
-    end
-    if recipe.user.id != current_user.id
-      flash[:alert] = 'Sorry! you can only access the details of your own recipes'
-      redirect_to public_recipes_path
-    end
+    authenticate_user! unless current_user.present?
+    return unless recipe.user.id != current_user.id
+
+    flash[:alert] = 'Sorry! you can only access the details of your own recipes'
+    redirect_to public_recipes_path
   end
 
   def recipe_params

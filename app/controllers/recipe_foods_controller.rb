@@ -19,6 +19,5 @@ class RecipeFoodsController < ApplicationController
       flash[:notice] = 'The ingredient has not been added.'
       render :new
     end
-
   end
 end

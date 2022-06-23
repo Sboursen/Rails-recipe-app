@@ -2,7 +2,7 @@
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 <div class="py-5 flex flex-col gap-y-3">
-   <h2 class="mb-5 text-center text-3xl font-bold text-slate-700">Log in</h2>
+   <h2 class="mb-5 text-center text-3xl font-bold text-sky-500">Log in</h2>
     <div class="field w-full flex flex-col">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

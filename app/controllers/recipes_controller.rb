@@ -1,4 +1,5 @@
 class RecipesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
   def index
     @user = current_user
     @recipes = @user.recipes.all
@@ -7,6 +8,7 @@ class RecipesController < ApplicationController
   def show
     # check if the recipe_id belong to the user
     @recipe = Recipe.find(params[:id])
+    authenticate_and_show!(@recipe)
   end
 
   def create
@@ -19,6 +21,17 @@ class RecipesController < ApplicationController
       render 'new'
       flash[:notice] = 'Failed to create a recipe'
     end
+  end
+
+  def update
+    @recipe = Recipe.find(params[:id])
+    @recipe.public = !@recipe.public
+
+    flash[:notice] = if @recipe.save
+                       "Your recipe is now #{@recipe.public ? 'Public' : 'Private'}"
+                     else
+                       'Failed to change the status of this recipe'
+                     end
   end
 
   def new
@@ -37,6 +50,17 @@ class RecipesController < ApplicationController
   end
 
   private
+
+  def authenticate_and_show!(recipe)
+    return if recipe.public
+
+    authenticate_user!
+
+    return unless recipe.user.id != current_user.id
+
+    flash[:alert] = 'Sorry! you can only access the details of your own recipes'
+    redirect_to public_recipes_path
+  end
 
   def recipe_params
     params.require(:recipe).permit(:name, :description, :preparation_time, :cooking_time)

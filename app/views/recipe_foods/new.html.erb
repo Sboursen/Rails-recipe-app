@@ -1,0 +1,26 @@
+<%= form_with model: RecipeFood.new, url: recipe_recipe_foods_path(@recipe), method: :post do |form| %>
+    <div class="flex flex-col w-72 my-2 gap-y-2 mx-auto">
+        <h1 class="text-lg text-sky-700">
+          Select a new ingredient for: <%= @recipe.name %>
+        </h1>
+        <div class="flex flex-row items-center">
+          <%= form.label :food, class: "w-24" %>
+          <%= form.select :food, @foods.map {|food| [food.name, food.id]}, class: "flex-shrink w-48" %>
+        </div>
+        <div class="flex flex-row items-center">
+          <%= form.label :quantity, class: "w-24" %>
+          <%= form.text_field :quantity, class: "flex-shrink w-48" %>
+        </div>
+        <div class="flex bg-sky-800 cursor-pointer text-white font-medium justify-center py-2 px-4 w-fit mx-auto">
+         <%= form.submit "Add ingredient" %>
+        </div>
+    </div>
+<% end %>
+
+<div class="border-2 bg-black w-5/6 self-center my-12 mx-auto"></div>
+
+<div class="flex cursor-pointer text-white font-medium justify-center py-2 px-4 w-fit mx-auto">
+  <%=form_with model: Food.new, url: new_food_path, method: :get do %>
+    <button class="bg-sky-800 rounded px-8 py-4 shadow-sm border-2">Create a new food</button>
+  <% end %>
+</div>

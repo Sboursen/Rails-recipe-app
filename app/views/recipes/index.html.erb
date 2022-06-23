@@ -4,12 +4,9 @@
       <button class="px-4 py-2 shadow-md shadow-black">Add recipe</button>
     <% end %>
   </div>
-
-<% @recipes.each do |recipe| %>
-     <p><%= recipe.name %></p>
-     <p><%= recipe.description %></p>
-     <%= button_to "Delete", recipe_path(recipe), method: :delete, data:{controller:  "confirmation", "message-value": "Are you sure?", action: "submit->confirmation#confirm"}%>
-<% end %>
+  <div class="w-fit self-center flex flex-col gap-12">
+    <% @recipes.each do |recipe| %>
+      <%= render partial: "recipe_card" , locals: { recipe: recipe } %>
+    <% end %>
+  </div>
 </div>
-
-

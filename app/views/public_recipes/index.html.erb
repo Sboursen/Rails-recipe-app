@@ -1,20 +1,22 @@
 <div class="flex justify-center flex-col items-center">
   <h1 class="text-xl font-bold w-full text-center mt-12">Public Recipes</h1>
-  <% @public_recipe.each do |pub| %>
-    <%= link_to recipe_path(pub) do %>
+  <% @public_recipe_data.each do |pub| %>
+    <%= link_to recipe_path(pub[:recipe]) do %>
       <div class="flex gap-y-5 w-[30rem] bg-slate-300 justify-between p-5 mt-5">
         <div class="flex flex-col gap-y-2">
           <h1 class="mr-5 text-blue-700">
-            <%= pub.name%> <span class='text-slate-800'>By:<span>
+            <%= pub[:recipe].name%> <span class='text-slate-800'>By:<span>
           </h1>
           <p class="text-green-500 mr-5">
-            <%= pub.user.name %>
+            <%= pub[:recipe].user.name %>
         </div>
 
         <div class="flex flex-col gap-y-2">
-          <p>Total food items: <%= pub.foods.length %>
+          <p>
+            Total food items: <%= pub[:food_count] %>
           </p>
-          <p>Total food items: <%= pub.foods.reduce(0) { |sum, num| sum + num.price } %>
+          <p>
+            Total price: <%= '%.2f' % pub[:total_price] %>
           </p>
         </div>
       </div>

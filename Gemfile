@@ -80,4 +80,4 @@ gem 'devise', '~> 4.8'
 
 gem 'tailwindcss-rails', '~> 2.0'
 
-gem "bullet", "~> 7.0"
+gem 'bullet', '~> 7.0'

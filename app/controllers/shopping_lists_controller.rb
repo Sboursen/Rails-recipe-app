@@ -11,9 +11,6 @@ class ShoppingListsController < ApplicationController
             sum(foods.price * recipe_foods.quantity) as price")
       .group('foods.id')
 
-    p @all_foods
-      .map { |row| [row[:name], row[:measurement_unit], row[:quantity], row[:price]] }
-
     @food_count = @all_foods.length
     @total_price = @all_foods.reduce(0) { |total, food| total + food[:price] }
   end

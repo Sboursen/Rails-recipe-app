@@ -2,7 +2,7 @@ class PublicRecipesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   def index
     @public_recipe_data = []
-    public_recipes = Recipe.includes([:foods, :recipe_foods, :user]).where(public: true).order('created_at DESC')
+    public_recipes = Recipe.includes(%i[foods recipe_foods user]).where(public: true).order('created_at DESC')
     public_recipes.each do |recipe|
       public_recipe_data_unit = {}
       public_recipe_data_unit[:recipe] = recipe

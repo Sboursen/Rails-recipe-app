@@ -31,7 +31,7 @@
     </div>
     <div class="buttons flex justify-between mt-10">
       <div>
-        <%=form_with model: Food.new, url: new_food_path, method: :get do %>
+        <%=form_with url: shopping_lists_path, method: :get do %>
           <button class="rounded px-8 py-4 shadow-sm border-2">Generate shopping list</button>
         <% end %>
       </div>
@@ -52,7 +52,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @recipe.recipe_foods.each do |recipe_food| %>
+        <% @recipe.recipe_foods.includes([:food]).each do |recipe_food| %>
           <tr class="odd:bg-gray-200">
             <td>
               <%= recipe_food.food.name %>

@@ -36,6 +36,11 @@ To get a local copy up and running follow these simple example steps.
 
 - Run ```rails s``` to run the app
 
+
+## Live demo
+
+- [recipe-app](https://rails-recipe-app.herokuapp.com/)
+
 ## Authors
 
 👤 **Soufiane Boursen**

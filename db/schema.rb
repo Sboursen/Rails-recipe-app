@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_21_145644) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_21_105042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "foods", force: :cascade do |t|
     t.string "name"
-    t.string "measurement_unit", default: "0"
+    t.string "measurement_unit", default: "gram"
     t.float "price", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_145644) do
   end
 
   create_table "inventory_foods", force: :cascade do |t|
-    t.string "quantity", default: "0"
+    t.float "quantity", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "food_id", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_145644) do
   end
 
   create_table "recipe_foods", force: :cascade do |t|
-    t.integer "quantity", default: 0
+    t.float "quantity", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "food_id", null: false
@@ -57,10 +57,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_145644) do
     t.integer "preparation_time", default: 0
     t.integer "cooking_time", default: 0
     t.boolean "public", default: false
+    t.text "description", default: "No description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.text "description"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
